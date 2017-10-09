@@ -1,6 +1,6 @@
 export class Channel {
     constructor(public id: number,
-                public name: string,
+                private _name: string,
                 public disp: string,
                 public desc: string,
                 public isPrivate?: boolean) {
@@ -18,5 +18,13 @@ export class Channel {
             }
         }
         return JSON.stringify(filtered);
+    }
+
+    get name(): string {
+      return 'testName';
+    }
+
+    set name(name: string) {
+      this._name = name;
     }
 }
