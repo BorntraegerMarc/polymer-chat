@@ -3,7 +3,7 @@ import {Http, Headers} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {Channel} from './channel.model';
+import { Channel } from './channel.model';
 
 @Injectable()
 export class ChannelService {
@@ -21,7 +21,14 @@ export class ChannelService {
             .get(this.apiUrl)
             .toPromise()
             .then((res) => {
-                return res.json().data as Channel[];
+              let channels: Channel[] = [];
+              const data2: Channel[] = res.json().data;
+              for (let i: number = 0; i < data2.length; i++) {
+                const data: Channel = data2[i];
+                let channel: Channel = new Channel(data.id, data.name, data.disp, data.desc, data.isPrivate);
+                channels.push(channel);
+              }
+              return channels;
             })
             .catch(this.handleError);
     }
